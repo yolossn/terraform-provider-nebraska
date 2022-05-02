@@ -1,3 +1,3 @@
-provider "scaffolding" {
-  # example configuration here
+provider "nebraska" {
+  endpoint = "http://localhost:8000"
 }
