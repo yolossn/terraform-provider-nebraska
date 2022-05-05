@@ -64,7 +64,7 @@ Read-Only:
 - `needs_admin` (Boolean)
 - `nua_commit` (String)
 - `nua_kustomize_config` (String)
-- `nua_path` (String)
+- `nua_namespace` (String)
 - `sha256` (String)
 
 

@@ -136,15 +136,15 @@ func resourceToPackageConfig(d *schema.ResourceData) (*codegen.PackageConfig, er
 		if !ok {
 			return nil, errors.New("'nua_commit' is required for package type 'git'")
 		}
-		nuaPath, ok := d.Get("nua_path").(string)
+		nuaNamespace, ok := d.Get("nua_namespace").(string)
 		if !ok {
-			return nil, errors.New("'nua_path' is required for package type 'git'")
+			return nil, errors.New("'nua_namespace' is required for package type 'git'")
 		}
 		nuaKustomizeConfig := d.Get("nua_kustomize_config").(string)
 		if !ok {
 			return nil, errors.New("'nua_kustomize_config' is required for package type 'git'")
 		}
-		encodedURL, err := encodeNUAURL(packageURL, nuaCommit, nuaPath, nuaKustomizeConfig)
+		encodedURL, err := encodeNUAURL(packageURL, nuaCommit, nuaNamespace, nuaKustomizeConfig)
 		if err != nil {
 			return nil, err
 		}
@@ -184,13 +184,13 @@ func resourceToPackageConfig(d *schema.ResourceData) (*codegen.PackageConfig, er
 
 func packageToResource(nebraskaPackage codegen.Package, d *schema.ResourceData) error {
 
-	if strings.Contains(nebraskaPackage.Url, "nua_commit") || strings.Contains(nebraskaPackage.Url, "nua_path") || strings.Contains(nebraskaPackage.Url, "nua_kustomize_config") {
+	if strings.Contains(nebraskaPackage.Url, "nua_commit") || strings.Contains(nebraskaPackage.Url, "nua_namespace") || strings.Contains(nebraskaPackage.Url, "nua_kustomize_config") {
 		ghUrl, commit, path, kustomize, err := decodeNUAURL(nebraskaPackage.Url)
 		if err != nil {
 			return err
 		}
 		d.Set("nua_commit", commit)
-		d.Set("nua_path", path)
+		d.Set("nua_namespace", path)
 		d.Set("nua_kustomize_config", kustomize)
 		nebraskaPackage.Url = ghUrl
 		d.Set("type", "git")

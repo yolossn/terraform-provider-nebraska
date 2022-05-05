@@ -54,7 +54,7 @@ resource "nebraska_package" "demo_package" {
 - `id` (String) The ID of this resource.
 - `nua_commit` (String)
 - `nua_kustomize_config` (String)
-- `nua_path` (String)
+- `nua_namespace` (String)
 - `type` (String) Type of package. Defaults to `flatcar`.
 
 ### Read-Only

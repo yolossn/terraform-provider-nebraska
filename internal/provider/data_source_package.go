@@ -134,7 +134,7 @@ func dataSourcePackage() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
-						"nua_path": {
+						"nua_namespace": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -272,7 +272,7 @@ func encodeNUAURL(ghUrl string, commit string, path string, kustomize string) (s
 	}
 	query := finalURL.Query()
 	query.Add("nua_commit", base64Encode(commit))
-	query.Add("nua_path", base64Encode(path))
+	query.Add("nua_namespace", base64Encode(path))
 	query.Add("nua_kustomize_config", base64Encode(kustomize))
 	finalURL.RawQuery = query.Encode()
 	return finalURL.String(), nil
@@ -286,12 +286,12 @@ func decodeNUAURL(encodedURL string) (ghUrl string, commit string, path string, 
 	}
 
 	encodedCommit := finalURL.Query().Get("nua_commit")
-	encodedPath := finalURL.Query().Get("nua_path")
+	encodedPath := finalURL.Query().Get("nua_namespace")
 	encodedKustomize := finalURL.Query().Get("nua_kustomize_config")
 
 	query := finalURL.Query()
 	query.Del("nua_commit")
-	query.Del("nua_path")
+	query.Del("nua_namespace")
 	query.Del("nua_kustomize_config")
 	finalURL.RawQuery = query.Encode()
 

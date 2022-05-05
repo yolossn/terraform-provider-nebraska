@@ -195,7 +195,7 @@ func resourcePackage() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"nua_path": {
+			"nua_namespace": {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
