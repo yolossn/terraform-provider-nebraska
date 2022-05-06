@@ -57,7 +57,7 @@ func dataSourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta
 		})
 	}
 	if appResp.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Fetching application", appResp.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Fetching application", appResp.HTTPResponse))
 		return diags
 	}
 

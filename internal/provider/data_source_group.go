@@ -114,7 +114,7 @@ func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta inter
 		return diags
 	}
 	if groupsResp.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Fetching group", groupsResp.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Fetching group", groupsResp.HTTPResponse))
 		return diags
 	}
 
@@ -136,7 +136,7 @@ func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta inter
 			return diags
 		}
 		if groupsResp.JSON200 == nil {
-			diags = append(diags, invalidResponseCodeDiag("Fetching group", groupsResp.StatusCode()))
+			diags = append(diags, invalidResponseCodeDiag("Fetching group", groupsResp.HTTPResponse))
 			return diags
 		}
 		group = filterGroupByName(groupsResp.JSON200.Groups, name)

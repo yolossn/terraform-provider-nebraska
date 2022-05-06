@@ -3,6 +3,8 @@ package provider
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -11,11 +13,12 @@ import (
 	"github.com/kinvolk/nebraska/backend/pkg/codegen"
 )
 
-func invalidResponseCodeDiag(step string, statusCode int) diag.Diagnostic {
+func invalidResponseCodeDiag(step string, resp *http.Response) diag.Diagnostic {
+	respBody, _ := ioutil.ReadAll(resp.Body)
 	return diag.Diagnostic{
 		Severity: diag.Error,
 		Summary:  step,
-		Detail:   fmt.Sprintf("Got invalid response code:%d", statusCode),
+		Detail:   fmt.Sprintf("Got invalid response code:%d\n resp:%s", resp.StatusCode, string(respBody)),
 	}
 }
 

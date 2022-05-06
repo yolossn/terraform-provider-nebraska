@@ -236,7 +236,7 @@ func resourcePackageCreate(ctx context.Context, d *schema.ResourceData, meta int
 		return diags
 	}
 	if packageResp.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Creating package", packageResp.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Creating package", packageResp.HTTPResponse))
 		return diags
 	}
 	err = packageToResource(*packageResp.JSON200, d)
@@ -273,7 +273,7 @@ func resourcePackageUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	}
 	if packageResp.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Creating package", packageResp.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Creating package", packageResp.HTTPResponse))
 		return diags
 	}
 

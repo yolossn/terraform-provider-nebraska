@@ -124,7 +124,7 @@ func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	if group.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Creating group", group.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Creating group", group.HTTPResponse))
 		return diags
 	}
 
@@ -153,7 +153,7 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	if group.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Updating group", group.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Updating group", group.HTTPResponse))
 		return diags
 	}
 

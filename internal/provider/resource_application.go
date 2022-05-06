@@ -102,7 +102,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 		return diags
 	}
 	if app.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Couldn't create application", app.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Couldn't create application", app.HTTPResponse))
 		return diags
 	}
 
@@ -127,7 +127,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 		})
 		return diags
 	}
-	app, err := c.client.UpdateAppWithResponse(ctx, appID, codegen.UpdateAppJSONRequestBody(*appConfig))
+	app, err := c.client.UpdateAppWithResponse(ctx, appID, codegen.UpdateAppJSONRequestBody(*appConfig), c.reqEditors...)
 	if err != nil {
 		diags = append(diags, diag.Diagnostic{
 			Severity: diag.Error,
@@ -137,7 +137,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 		return diags
 	}
 	if app.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Couldn't update application", app.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Couldn't update application", app.HTTPResponse))
 		return diags
 	}
 

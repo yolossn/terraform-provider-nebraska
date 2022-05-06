@@ -77,7 +77,7 @@ func dataSourceChannelRead(ctx context.Context, d *schema.ResourceData, meta int
 		return diags
 	}
 	if channelsResp.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Fetching channels", channelsResp.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Fetching channels", channelsResp.HTTPResponse))
 		return diags
 	}
 
@@ -99,7 +99,7 @@ func dataSourceChannelRead(ctx context.Context, d *schema.ResourceData, meta int
 			return diags
 		}
 		if channelsResp.JSON200 == nil {
-			diags = append(diags, invalidResponseCodeDiag("Fetching channels", channelsResp.StatusCode()))
+			diags = append(diags, invalidResponseCodeDiag("Fetching channels", channelsResp.HTTPResponse))
 			return diags
 		}
 

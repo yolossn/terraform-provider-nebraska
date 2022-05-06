@@ -179,7 +179,7 @@ func dataSourcePackageRead(ctx context.Context, d *schema.ResourceData, meta int
 		return diags
 	}
 	if packagesPage.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Fetching packages", packagesPage.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Fetching packages", packagesPage.HTTPResponse))
 		return diags
 	}
 
@@ -201,7 +201,7 @@ func dataSourcePackageRead(ctx context.Context, d *schema.ResourceData, meta int
 			return diags
 		}
 		if packagesPage.JSON200 == nil {
-			diags = append(diags, invalidResponseCodeDiag("Fetching packages", packagesPage.StatusCode()))
+			diags = append(diags, invalidResponseCodeDiag("Fetching packages", packagesPage.HTTPResponse))
 			return diags
 		}
 		nebraskaPackage = filterPackageByVersionArch(packagesPage.JSON200.Packages, version, arch)

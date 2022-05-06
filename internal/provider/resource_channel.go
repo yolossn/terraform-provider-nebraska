@@ -85,7 +85,7 @@ func resourceChannelCreate(ctx context.Context, d *schema.ResourceData, meta int
 		return diags
 	}
 	if channel.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Couldn't create channel", channel.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Couldn't create channel", channel.HTTPResponse))
 		return diags
 	}
 
@@ -121,7 +121,7 @@ func resourceChannelUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		return diags
 	}
 	if channel.JSON200 == nil {
-		diags = append(diags, invalidResponseCodeDiag("Couldn't update channel", channel.StatusCode()))
+		diags = append(diags, invalidResponseCodeDiag("Couldn't update channel", channel.HTTPResponse))
 		return diags
 	}
 
